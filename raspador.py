@@ -1,32 +1,37 @@
-
-
-
 import requests # Baixa arquivos e páginas da internet
-import os # Módulo do Python que permite interagir com um sistema operacional (no     meu caso, Windows)
+import os # Módulo do Python que permite interagir com um sistema operacional (no meu caso, Windows)
 import bs4 # Analisa o HTML da página (bs4 = Beautiful Soup 4)
+from urllib.parse import urljoin
+# Parse --> Analisar e quebrar algo em partes menores (ler um texto e entender a estrutura dele)
+# Para simplificar e economizar, a web usa muitos caminhos relativos ("links incompletos")
+# A função urljoin do "submódulo" urllib.parse permite juntar •uma URL base a •um caminho relativo.
+# Exemplo:
+#    •./ --> Diretório atual
+#    •../ --> Volte um nível acima
+#    •../../ --> Volte dois níveis acima
+#    •"http://books.toscrape.com/catalogue/page-1.html" + "../page-2.html"
+#    • = "http://books.toscrape.com/catalogue/page-2.html")
 
-http = '' # AINDA VOU COLOCAR A URL AQUI
+http = "https://books.toscrape.com/" # Escolhi este site porque ele é próprio para treino de Web Scraping
 
-os.makedirs('....ismo', exist_ok=True)
-# Uma pasta chamada     ....ismo será criada
-# exist_ok=True --> Se a pasta      ...ismo já existir, não haverá problema algum
+os.makedirs("Ecletismo literário", exist_ok=True)
+# Função makedirs do módulo os --> Permite criar pastas (diretórios)
+# Uma pasta chamada "Ecletismo literário" será criada
+# exist_ok=True --> Se a pasta "Ecletismo literário" já existir, não haverá qualquer problema
 
-while busca_gifs: # PRECISO VERIFICAR QUAL É O "SINAL DE PARADA" (OU OUTRA FORMA APROPRIADA) PARA INPLEMENTAR DA FORMA CORRETA
-    print('Baixando da página %s...' % http) 
-    # %s --> Espaço reservado para alguma outra coisa
-    # Significado --> "Coloque o valor da variável http no lugar do %s"
-    res = requests.get(http)
-    res.raise_for_status()
+while True: # Repita algo para sempre até algo mandar parar (break)
+    print(f"Baixando: {http}")
 
-    if busca_gifs == 0:
-        break
+    resposta = requests.get(http) # Requisita a página da variável http
+    resposta.raise_for_status() # Se o status for 200, o programa segue normalmente
 
-
-
-
-
-
-
+    soup = bs4.BeautifulSoup(resposta.text, "html.parser")
+    # resposta.text:
+    #    •Resultado --> <html><body><div><img src="x.jpg"></div></body></html>
+    #    •É como se fosse uma sopa de letrinhas, todas bem misturadas
+    # bs4.BeautifulSoup --> É o que organiza as letreinhas da sopa para o Python ler
+    # html.parser --> Lê a HTML da variável resposta
+    # html.parser --> Lê o HTML da resposta e o transforma em uma estrutura organizada (árvore)
 
 
 
