@@ -18,7 +18,7 @@
 
 # 
 
-### Este projeto utiliza as dependências listadas em requirements.txt
+### Este projeto utiliza as dependências listadas em requirements.txt (incluindo beautifulsoup4==4.14.3 e requests==2.33.1)
 
 # 
 
